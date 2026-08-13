@@ -1,25 +1,65 @@
 ## WORKSPACE EXECUTIVE SUMMARY (YAML)
-# Generated: 2026-07-16T10:32:06.0440338+01:00
+# Generated: 2026-08-08T15:09:56.9171941+01:00
 # Root: C:\Users\Jamie\source\repos\Compiler
 Architecture:
   Type: General Codebase
-  Scale: 7 relevant source files
+  Scale: 27 relevant source files
   Components: 0
   Controllers: 0
   Models: 0
   Services: 0
 ---
 - File: Compiler.slnx
-  Preview: "<Solution>  <Configurations>   <Platform Name='x64' />   <Platform Name='x86' />  </Configurations>  <Project Path='Compiler/Compiler.vcxproj' Id='0da..."
+  Preview: "<Solution>  <Configurations>   <Platform Name='x64' />   <Platform Name='x86' />  </Configurations>  <Project Path='IR/IR.vcxproj' Id='70064a6f-e8ea-4..."
+- File: LICENSE.txt
+  Preview: "MIT License Copyright (c) [year] [fullname] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associat..."
+- File: README.md
+  Preview: "# Compiler"
 - File: Backend\HelloWorld.cpp
   Preview: "#include <iostream> void HelloWorld() {   std::cout << 'Hello World' << std::endl; } "
-- File: Compiler\Main.cpp
-  Preview: "#include 'Backend/InstructionList.hpp' int main() { 	using namespace Backend; 	InstructionList instructions; 	instructions.Add<Jump>(); }"
+- File: IR\BasicBlock.cpp
+  Preview: "#include 'pch.h' IR::BasicBlock::Iterator IR::BasicBlock::begin() const {   return instructions.begin(); } IR::BasicBlock::Iterator IR::BasicBlock::en..."
+- File: IR\BasicBlock.hpp
+  Preview: "#pragma once #include <vector> #include 'Instruction.hpp' namespace IR {   /**   * Represents a basic block in the intermediate representation.   */  ..."
+- File: IR\Builder.cpp
+  Preview: "#include 'pch.h' #include 'Builder.hpp' #include 'Function.hpp' constexpr IR::Builder::Builder(Function& function, Types& types) 	: function(function)..."
+- File: IR\Builder.hpp
+  Preview: "#pragma once #include 'pch.h' namespace IR { 	class BasicBlock; 	class Function; 	class Types; 	class Builder { 	public: 		constexpr Builder(Function&..."
+- File: IR\Function.cpp
+  Preview: "#include 'pch.h' #include 'Function.hpp' IR::BasicBlock* IR::Function::CreateBlock() { 	blocks.emplace_back(new BasicBlock()); 	return blocks.back().g..."
+- File: IR\Function.hpp
+  Preview: "#pragma once #include <memory> #include 'BasicBlock.hpp' namespace IR { 	class Function { 	public: 		BasicBlock* CreateBlock(); 		Value* CreateVariabl..."
+- File: IR\Instruction.hpp
+  Preview: "#pragma once #include 'Value.hpp' namespace IR { 	class BasicBlock; 	template<typename Derived> 	struct Binary { 		Value* result; 		Value* left; 		Val..."
+- File: IR\pch.cpp
+  Preview: "// pch.cpp: source file corresponding to the pre-compiled header #include 'pch.h' #include 'BasicBlock.hpp' // When you are using pre-compiled headers..."
+- File: IR\pch.h
+  Preview: "// pch.h: This is a precompiled header file. // Files listed below are compiled only once, improving build performance for future builds. // This also..."
+- File: IR\Types.cpp
+  Preview: "#include 'Types.hpp' #include 'pch.h' IR::Types::Types() { 	AddType('int1', FixedWidth(1)); 	AddType('int8', FixedWidth(8)); 	AddType('int16', FixedWi..."
+- File: IR\Types.hpp
+  Preview: "#pragma once #include <variant> #include <memory> #include <unordered_map> #include <string> namespace IR { 	struct FixedWidth; 	struct Pointer; 	stru..."
+- File: IR\Value.cpp
+  Preview: "#include 'pch.h' constexpr IR::Value::Value(Type* type) : type(type) {} constexpr IR::Variable::Variable(Type* type, VariableMetadata metadata) : 	Val..."
+- File: IR\Value.hpp
+  Preview: "#pragma once #include 'Types.hpp' #include <string> #include <vector> #include <span> namespace IR { 	struct Value { 		constexpr Value(Type* type); 		..."
+- File: X64\MC.cpp
+  Preview: "#include 'pch.h' #include 'MC.hpp' // Math constexpr X64::MC X64::MC::Add(Operand dst, Operand src) { 	return { Opcode::Add, dst, src }; } constexpr X..."
+- File: X64\MC.hpp
+  Preview: "#pragma once #include <IR/Value.hpp> #include 'Regs.hpp' #include 'Operand.hpp' namespace X64 { 	class Operands : public std::array<Operand, 2> { 	pub..."
+- File: X64\Operand.cpp
+  Preview: "#include 'Operand.hpp' #include 'pch.h' constexpr X64::Operand::Operand(Register reg) : Operand(reg) {} constexpr X64::Operand::Operand(MemoryAddress ..."
+- File: X64\Operand.hpp
+  Preview: "#pragma once #include <IR/Value.hpp> #include 'Regs.hpp' #include <variant> namespace X64 { 	struct MemoryAddress { 		std::size_t value; 	}; 	struct I..."
+- File: X64\pch.cpp
+  Preview: "// pch.cpp: source file corresponding to the pre-compiled header #include 'pch.h' #include 'MC.hpp' // When you are using pre-compiled headers, this s..."
+- File: X64\pch.h
+  Preview: "// pch.h: This is a precompiled header file. // Files listed below are compiled only once, improving build performance for future builds. // This also..."
+- File: X64\Platform.hpp
+  Preview: "#pragma once namespace X64 { 	enum class ABI { 		Windows, 		SystemV 	};  #ifdef _WINDOWS 	constexpr ABI Abi = ABI::Windows; #else 	//constexpr ABI Abi..."
+- File: X64\Regs.cpp
+  Preview: "#include 'Regs.hpp' #include 'Platform.hpp' constexpr X64::Register::Register(enum X64::Register::Name name) : 	name(name) { } constexpr X64::Register..."
+- File: X64\Regs.hpp
+  Preview: "#pragma once #include <array> namespace X64 { 	class Register { 	public: 		enum class Size { Qword = 0, Dword = 1, Word = 2, Byte = 3 }; 		enum Name {..."
 - File: Compiler\Backend\Function.cpp
   Preview: "#include 'Function.hpp' Backend::ValueId Backend::FunctionBuilder::CreateTemporary(TypePointer type) {   return ValueId(); } Backend::ValueId Backend:..."
-- File: Compiler\Backend\Instruction.hpp
-  Preview: "#pragma once #include 'Value.hpp' namespace Backend { 	template<typename Derived> 	struct Binary { 		Value* destination; 		Value* left; 		Value* right..."
-- File: Compiler\Backend\InstructionList.hpp
-  Preview: "#pragma once #include <vector> #include 'Instruction.hpp' namespace Backend { 	class InstructionList { 	public: 		template<typename Ins, typename ...A..."
-- File: Compiler\Backend\Value.hpp
-  Preview: "#pragma once #include <variant> namespace Backend { 	struct Constant {}; 	struct Temporary {}; 	struct Variable {}; 	using Value = std::variant<Consta..."

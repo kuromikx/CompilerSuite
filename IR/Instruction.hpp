@@ -17,7 +17,6 @@ namespace IR {
 		Value* source;
 	};
 
-
 	// Memory
 	struct Store : Unary<Store> {};
 	struct Load : Unary<Store> {};
@@ -26,6 +25,14 @@ namespace IR {
 	struct Add : Binary <Add> {};
 	struct Subtract : Binary <Add> {};
 
+	// Comparison
+	struct Less : Binary<Less> {};
+	struct LessOrEqual : Binary<LessOrEqual> {};
+	struct Equal : Binary<Equal> {};
+	struct NotEqual : Binary<NotEqual> {};
+	struct Greater : Binary<Greater> {};
+	struct GreaterOrEqual : Binary<GreaterOrEqual> {};
+	
 	// Control Flow
 	struct Branch { Value* value; BasicBlock* ifTrue; BasicBlock* ifFalse; };
 	struct Jump { BasicBlock* destination; };
@@ -33,8 +40,11 @@ namespace IR {
 
 	using Instruction = std::variant<
 		Store, Load,
-
 		Add, Subtract,
+		
+		Less, LessOrEqual,
+		Equal, NotEqual,
+		Greater, GreaterOrEqual,
 
 		Branch, Jump, Return
 	>;

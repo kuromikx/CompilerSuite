@@ -1,5 +1,5 @@
 #pragma once
-#include "ValueType.hpp"
+#include "Types.hpp"
 
 #include <string>
 #include <vector>
@@ -12,16 +12,22 @@ namespace IR {
 		Type* type;
 	};
 
-	struct Variable : Value { 
-		constexpr Variable(Type* type, std::string_view name);
+	struct VariableMetadata {
 		std::string name;
+	};
+
+	struct Variable : Value { 
+		constexpr Variable(Type* type, VariableMetadata metadata);
+		VariableMetadata metadata;
 	};
 	
 	struct Constant : Value {
 		using Integer = long long;
 		using Float = double;
 		using Literal = std::variant<Integer, Float>;
+
 		constexpr Constant(Type* type, Literal literal);
+	
 		Literal literal;
 	};
 

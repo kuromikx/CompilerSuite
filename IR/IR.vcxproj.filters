@@ -24,10 +24,16 @@
     <ClInclude Include="Value.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ValueType.hpp">
+    <ClInclude Include="Types.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BasicBlock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Builder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -36,6 +42,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Value.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Builder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
