@@ -18,25 +18,22 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Instruction.hpp">
+    <ClInclude Include="MC.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Value.hpp">
+    <ClInclude Include="Regs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Types.hpp">
+    <ClInclude Include="Operand.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BasicBlock.hpp">
+    <ClInclude Include="Platform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Builder.hpp">
+    <ClInclude Include="MCBlock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Function.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Liveness.hpp">
+    <ClInclude Include="MCSelector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,22 +41,16 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Value.cpp">
+    <ClCompile Include="MC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Function.cpp">
+    <ClCompile Include="Regs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BasicBlock.cpp">
+    <ClCompile Include="Operand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Types.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Builder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Liveness.cpp">
+    <ClCompile Include="MCSelector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

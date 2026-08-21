@@ -8,9 +8,5 @@
 
 void Foo() {
 	using namespace X64;
-	using enum Register::Name;
-
-	MC mc = MC::Add(Operand(Register(rax)), Operand(Register(rbx)));
-	MC mc2 = MC::Add({ Register(rax) }, { Register(rbx) });
-	MC mc3 = MC::Add({ rax }, { rbx });
+	MC mc3 = MC::Add({ Register::rax }, { Register::rbx });
 }

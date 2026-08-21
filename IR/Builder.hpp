@@ -8,11 +8,11 @@ namespace IR {
 
 	class Builder {
 	public:
-		constexpr Builder(Function& function, Types& types);
+		Builder(Function& function, Types& types);
 		void SetInsertPoint(BasicBlock* block);
 
 		// Memory
-		void Store(Value* left);
+		void Store(Value* destination, Value* source);
 		Value* Load(Value* left);
 		
 		// Math

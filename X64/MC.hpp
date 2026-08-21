@@ -4,6 +4,8 @@
 #include "Regs.hpp"
 #include "Operand.hpp"
 
+#include <array>
+
 namespace X64 {
 	class Operands : public std::array<Operand, 2> {
 	public:
@@ -46,48 +48,52 @@ namespace X64 {
 		Opcode opcode;
 		Operands operands;
 
+		// Storage
+		static MC Mov(Operand dst, Operand src);
+		static MC MovZx(Operand dst, Operand src);
+
 		// Math
-		constexpr static MC Add(Operand dst, Operand src);
-		constexpr static MC Sub(Operand dst, Operand src);
-		constexpr static MC Inc(Operand dst);
-		constexpr static MC Dec(Operand dst);
+		static MC Add(Operand dst, Operand src);
+		static MC Sub(Operand dst, Operand src);
+		static MC Inc(Operand dst);
+		static MC Dec(Operand dst);
 
 		// Logic
-		constexpr static MC And(Operand dst, Operand src);
-		constexpr static MC Or(Operand dst, Operand src);
-		constexpr static MC Xor(Operand dst, Operand src);
+		static MC And(Operand dst, Operand src);
+		static MC Or(Operand dst, Operand src);
+		static MC Xor(Operand dst, Operand src);
 
 		// Comparisons
-		constexpr static MC Cmp(Operand left, Operand right);
-		constexpr static MC Test(Operand left, Operand right);
-		constexpr static MC SetL(Operand dst);
-		constexpr static MC SetLe(Operand ds);
-		constexpr static MC SetE(Operand dst);
-		constexpr static MC SetNe(Operand dst);
-		constexpr static MC SetG(Operand dst);
-		constexpr static MC SetGe(Operand dst);
-		constexpr static MC SetZ(Operand dst);
-		constexpr static MC SetNZ(Operand dst);
+		static MC Cmp(Operand left, Operand right);
+		static MC Test(Operand left, Operand right);
+		static MC SetL(Operand dst);
+		static MC SetLe(Operand ds);
+		static MC SetE(Operand dst);
+		static MC SetNe(Operand dst);
+		static MC SetG(Operand dst);
+		static MC SetGe(Operand dst);
+		static MC SetZ(Operand dst);
+		static MC SetNZ(Operand dst);
 
 		// Branching
-		constexpr static MC Jmp(const Operand dst);
-		constexpr static MC Jz(const Operand dst);
-		constexpr static MC Jnz(const Operand dst);
-		constexpr static MC Jl(const Operand dst);
-		constexpr static MC Jle(const Operand dst);
-		constexpr static MC Je(const Operand dst);
-		constexpr static MC Jne(const Operand dst);
-		constexpr static MC Jg(const Operand dst);
-		constexpr static MC Jge(const Operand dst);
+		static MC Jmp(const Operand dst);
+		static MC Jz(const Operand dst);
+		static MC Jnz(const Operand dst);
+		static MC Jl(const Operand dst);
+		static MC Jle(const Operand dst);
+		static MC Je(const Operand dst);
+		static MC Jne(const Operand dst);
+		static MC Jg(const Operand dst);
+		static MC Jge(const Operand dst);
 	
 		// etc
-		constexpr static MC Ret();
-		constexpr static MC Nop();
+		static MC Ret();
+		static MC Nop();
 
 		// Helpers
-		constexpr bool IsConditionalJump() const noexcept;
-		constexpr bool IsSetCC() const noexcept;
-		constexpr MC InvertJumpCondition() const noexcept;
+		bool IsConditionalJump() const noexcept;
+		bool IsSetCC() const noexcept;
+		MC InvertJumpCondition() const noexcept;
 	};
 
 }

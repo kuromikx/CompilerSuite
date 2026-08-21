@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Function.hpp"
+#include "Value.hpp"
 
 IR::BasicBlock* IR::Function::CreateBlock() {
 	blocks.emplace_back(new BasicBlock());

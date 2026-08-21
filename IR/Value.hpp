@@ -17,7 +17,7 @@ namespace IR {
 	};
 
 	struct Variable : Value { 
-		constexpr Variable(Type* type, VariableMetadata metadata);
+		Variable(Type* type, VariableMetadata metadata);
 		VariableMetadata metadata;
 	};
 	
@@ -26,12 +26,11 @@ namespace IR {
 		using Float = double;
 		using Literal = std::variant<Integer, Float>;
 
-		constexpr Constant(Type* type, Literal literal);
-	
+		Constant(Type* type, Literal literal);
 		Literal literal;
 	};
 
 	struct Temporary : Value {
-		constexpr Temporary(Type* type);
+		Temporary(Type* type);
 	};
 }

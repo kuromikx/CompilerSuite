@@ -1,5 +1,6 @@
 #include "Regs.hpp"
 #include "Platform.hpp"
+#include "pch.h"
 
 constexpr X64::Register::Register(enum X64::Register::Name name) :
 	name(name)

@@ -1,5 +1,4 @@
 #pragma once
-#include <array>
 
 namespace X64 {
 	class Register {
@@ -20,8 +19,8 @@ namespace X64 {
 		constexpr Name Name() const noexcept;
 		constexpr Size Size() const noexcept;
 		constexpr bool operator == (const enum Name name) const noexcept;
+	
 	private:
 		enum Name name;
 	};
-
 }

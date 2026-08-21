@@ -2,15 +2,15 @@
 #include "Builder.hpp"
 #include "Function.hpp"
 
-constexpr IR::Builder::Builder(Function& function, Types& types) 
+IR::Builder::Builder(Function& function, Types& types) 
 	: function(function), types(types), block(nullptr) { }
 
 void IR::Builder::SetInsertPoint(BasicBlock* block) {
 	this->block = block;
 }
 
-void IR::Builder::Store(Value* left) {
-	block->Add<IR::Store>(left);
+void IR::Builder::Store(Value* destination, Value* source) {
+	block->Add<IR::Store>(destination, source);
 }
 
 IR::Value* IR::Builder::Load(Value* left) {

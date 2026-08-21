@@ -1,8 +1,8 @@
 #pragma once
 #include <IR/Value.hpp>
 #include "Regs.hpp"
-#include <variant>
 #include <cstdint>
+#include <variant>
 
 namespace X64 {
 	struct Empty {};
@@ -22,9 +22,8 @@ namespace X64 {
 		Empty,
 		Register,
 		Address,
-		Immediate,
+		Immediate
 	> {
-
 		constexpr bool IsRegister() const;
 		constexpr bool IsMemoryAddress() const;
 		constexpr bool IsImmediate() const;

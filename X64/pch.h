@@ -7,5 +7,7 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include "Platform.hpp"
+#include "MC.hpp"
 
 #endif //PCH_H

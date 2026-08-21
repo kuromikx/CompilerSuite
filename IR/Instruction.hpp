@@ -48,4 +48,12 @@ namespace IR {
 
 		Branch, Jump, Return
 	>;
+
+	constexpr bool IsTerminator(const Instruction& instruction) {
+		return
+			std::holds_alternative<Branch>(instruction) ||
+			std::holds_alternative<Jump>(instruction) ||
+			std::holds_alternative<Return>(instruction);
+	}
+
 }
