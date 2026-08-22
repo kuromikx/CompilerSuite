@@ -36,7 +36,7 @@
     <ClInclude Include="Function.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Liveness.hpp">
+    <ClInclude Include="CFG.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClCompile Include="Builder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Liveness.cpp">
+    <ClCompile Include="CFG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,5 +20,8 @@ IR::Value* IR::Function::CreateConstant(IR::Type* type, Constant::Literal litera
 IR::Value* IR::Function::CreateTemporary(Type* type) {
 	values.emplace_back(new Temporary(type));
 	return values.back().get();
+}
 
+std::span<const std::unique_ptr<IR::BasicBlock>> IR::Function::GetBlocks() const {
+	return blocks;
 }

@@ -155,7 +155,7 @@
     <ClInclude Include="Builder.hpp" />
     <ClInclude Include="Function.hpp" />
     <ClInclude Include="Instruction.hpp" />
-    <ClInclude Include="Liveness.hpp" />
+    <ClInclude Include="CFG.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Value.hpp" />
     <ClInclude Include="Types.hpp" />
@@ -164,7 +164,7 @@
     <ClCompile Include="BasicBlock.cpp" />
     <ClCompile Include="Builder.cpp" />
     <ClCompile Include="Function.cpp" />
-    <ClCompile Include="Liveness.cpp" />
+    <ClCompile Include="CFG.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

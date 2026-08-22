@@ -9,6 +9,7 @@ namespace IR {
 		Value* CreateVariable(Type* type, VariableMetadata metadata = {.name = "unnamed"});
 		Value* CreateConstant(Type* type, Constant::Literal literal);
 		Value* CreateTemporary(Type* type);
+		std::span<const std::unique_ptr<BasicBlock>> GetBlocks() const;
 
 	protected:
 		template<typename Ty, typename... Args>

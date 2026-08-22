@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include <IR/Builder.hpp>
-#include <IR/Liveness.hpp>
+#include <IR/CFG.hpp>
 
 int main() {
 	IR::Types types;
@@ -19,6 +19,8 @@ int main() {
 	builder.Store(right, function.CreateConstant(types.Int32(), 20));
 	builder.Store(result, builder.Add(left, right));
 	builder.Return(result);
+
+	IR::CFG cfg = IR::CFG::Build(function);
 
 	return 0;
 }

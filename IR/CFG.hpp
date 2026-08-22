@@ -5,20 +5,22 @@
 namespace IR {
 	class CFG {
 	public:
-		static CFG Build(std::span<BasicBlock*> blocks);
+		static CFG Build(const Function& function);
 
 	private:
+		void ComputeLiveness();
+
 		struct BasicBlockInfo {
-			BasicBlock* block;
-			std::vector<BasicBlockInfo*> predecessors;
-			std::vector<BasicBlockInfo*> successors;
+			const BasicBlock* block;
+			std::vector<const BasicBlockInfo*> predecessors;
+			std::vector<const BasicBlockInfo*> successors;
 
 			std::unordered_set<IR::Value*> use;
 			std::unordered_set<IR::Value*> def;
 			std::unordered_set<IR::Value*> liveIn;
 			std::unordered_set<IR::Value*> liveOut;
 		};
-
+		
 		std::vector<BasicBlockInfo> blocks;
 	};
 }

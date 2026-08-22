@@ -34,7 +34,7 @@ namespace IR {
 	struct GreaterOrEqual : Binary<GreaterOrEqual> {};
 	
 	// Control Flow
-	struct Branch { Value* value; BasicBlock* ifTrue; BasicBlock* ifFalse; };
+	struct Branch { Value* condition; BasicBlock* ifTrue; BasicBlock* ifFalse; };
 	struct Jump { BasicBlock* destination; };
 	struct Return { Value* value; };
 
