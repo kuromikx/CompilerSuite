@@ -125,6 +125,7 @@
       <LanguageStandard>stdcpp23</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -146,6 +147,7 @@
       <LanguageStandard>stdcpp23</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -163,10 +165,11 @@
     <ClInclude Include="Operand.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Platform.hpp" />
-    <ClInclude Include="RegisterAllocator.hpp" />
+    <ClInclude Include="Allocator.hpp" />
     <ClInclude Include="Regs.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Allocator.cpp" />
     <ClCompile Include="MC.cpp" />
     <ClCompile Include="MCSelector.cpp" />
     <ClCompile Include="Operand.cpp" />

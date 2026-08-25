@@ -14,7 +14,7 @@ constexpr bool X64::Operand::IsImmediate() const {
 }
 
 constexpr bool X64::Operand::IsRax() const {
-	return IsRegister() && AsRegister().Name() == Register::rax;
+	return IsRegister() && AsRegister() == Register::rax;
 }
 
 constexpr const X64::Register& X64::Operand::AsRegister() const {

@@ -5,8 +5,3 @@
 
 // When you are using pre-compiled headers, this source file is necessary for compilation to succeed.
 
-
-void Foo() {
-	using namespace X64;
-	MC mc3 = MC::Add({ Register::rax }, { Register::rbx });
-}

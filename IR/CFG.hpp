@@ -1,5 +1,6 @@
 #pragma once
 #include "BasicBlock.hpp"
+#include "Function.hpp"
 #include <unordered_set>
 
 namespace IR {

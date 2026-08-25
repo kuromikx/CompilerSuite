@@ -2,13 +2,34 @@
 #include "Platform.hpp"
 #include "pch.h"
 
-constexpr X64::Register::Register(enum X64::Register::Name name) :
-	name(name)
-{
+
+const char* X64::ToString(Register reg) {
+#define X(a,b,c,d) case a: return #a ; case b: return #b; case c: return #c; case d: return #c 
+	using enum Register;
+	switch (reg) {
+		X(rbp, ebp, bp, bpl);
+		X(rsp, esp, sp, spl);
+		X(rax, eax, ax, al);
+		X(rbx, ebx, bx, bl);
+		X(rcx, ecx, cx, cl);
+		X(rdx, edx, dx, dl);
+		X(r8, r8d, r8w, r8b);
+		X(r9, r9d, r9w, r9b);
+		X(r10, r10d, r10w, r10b);
+		X(r11, r11d, r11w, r11b);
+		X(r12, r12d, r12w, r12b);
+		X(r13, r13d, r13w, r13b);
+		X(r14, r14d, r14w, r14b);
+		X(r15, r15d, r15w, r15b);
+		X(rsi, esi, si, sil);
+		X(rdi, edi, di, dil);
+	}
+#undef X
 }
 
-constexpr X64::Register X64::Register::Promoted() const {
-	switch (name) {
+X64::Register X64::Promote(Register reg) {
+	using enum Register;
+	switch (reg) {
 	case rax:	case eax:	case ax:		case al:	return rax;
 	case rbx:	case ebx:	case bx:		case bl:	return rbx;
 	case rcx:	case ecx:	case cx:		case cl:	return rcx;
@@ -28,9 +49,11 @@ constexpr X64::Register X64::Register::Promoted() const {
 	}
 }
 
-constexpr bool X64::Register::IsCalleeSaved() const {
+bool X64::IsCalleeSaved(Register reg) {
+	reg = Promote(reg);
+	using enum Register;
 	if constexpr (Abi == ABI::Windows) {
-		switch (Promoted().Name()) {
+		switch (reg) {
 		case rbx:
 		case rbp:
 		case rsi:
@@ -44,7 +67,7 @@ constexpr bool X64::Register::IsCalleeSaved() const {
 		}
 	}
 	else if constexpr (Abi == ABI::SystemV) {
-		switch (Promoted().Name()) {
+		switch (reg) {
 		case rbx:
 		case rbp:
 		case rsp:
@@ -56,12 +79,13 @@ constexpr bool X64::Register::IsCalleeSaved() const {
 		}
 	}
 
-	return false;
 }
 
-constexpr bool X64::Register::IsScratch() const {
+bool X64::IsScratch(Register reg) {
+	using enum Register;
+	reg = Promote(reg);
 	if constexpr (Abi == ABI::Windows) {
-		switch (Promoted().Name()) {
+		switch (reg) {
 		case rax:
 		case rcx:
 		case rdx:
@@ -73,7 +97,7 @@ constexpr bool X64::Register::IsScratch() const {
 		}
 	}
 	else if constexpr (Abi == ABI::SystemV) {
-		switch (Promoted().Name()) {
+		switch (reg) {
 		case rax:
 		case rcx:
 		case rdx:
@@ -89,17 +113,10 @@ constexpr bool X64::Register::IsScratch() const {
 	return false;
 }
 
-constexpr enum X64::Register::Name X64::Register::Name() const noexcept {
-	return name;
-}
-
-constexpr enum X64::Register::Size X64::Register::Size() const noexcept {
-	if (name >= rbp && name <= rdi) return	Size::Qword;
-	if (name >= ebp && name <= edi) return	Size::Dword;
-	if (name >= bp && name <= di)	return	Size::Word;
-	return									Size::Byte;
-}
-
-constexpr bool X64::Register::operator==(const enum X64::Register::Name name) const noexcept {
-	return Name() == name;
+X64::RegisterSize X64::Size(Register reg) {
+	using enum Register;
+	if (reg >= rbp && reg <= rdi) return	RegisterSize::Qword;
+	if (reg >= ebp && reg <= edi) return	RegisterSize::Dword;
+	if (reg >= bp && reg <= di)	return		RegisterSize::Word;
+	return									RegisterSize::Byte;
 }

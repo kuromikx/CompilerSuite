@@ -12,6 +12,10 @@ namespace IR {
 			return edges.at(value);
 		}
 
+		const auto& GetValues() const {
+			return edges;
+		}
+
 	private:
 		void AddValue(Value* value);
 		void AddInterference(Value* a, Value* b);

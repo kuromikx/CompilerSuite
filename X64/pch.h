@@ -9,5 +9,6 @@
 
 #include "Platform.hpp"
 #include "MC.hpp"
+#include "Regs.hpp"
 
 #endif //PCH_H
