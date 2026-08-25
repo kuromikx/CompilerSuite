@@ -11,3 +11,11 @@ IR::BasicBlock::Iterator IR::BasicBlock::begin() const {
 IR::BasicBlock::Iterator IR::BasicBlock::end() const {
     return instructions.end();
 }
+
+IR::BasicBlock::ReverseIterator IR::BasicBlock::rbegin() const {
+	return instructions.rbegin();
+}
+
+IR::BasicBlock::ReverseIterator IR::BasicBlock::rend() const {
+	return instructions.rend();
+}

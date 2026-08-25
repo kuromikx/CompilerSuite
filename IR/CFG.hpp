@@ -6,6 +6,9 @@ namespace IR {
 	class CFG {
 	public:
 		static CFG Build(const Function& function);
+		const auto& Blocks() const {
+			return blocks;
+		}
 
 	private:
 		void ComputeLiveness();

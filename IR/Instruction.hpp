@@ -32,7 +32,7 @@ namespace IR {
 	struct NotEqual : Binary<NotEqual> {};
 	struct Greater : Binary<Greater> {};
 	struct GreaterOrEqual : Binary<GreaterOrEqual> {};
-	
+
 	// Control Flow
 	struct Branch { Value* condition; BasicBlock* ifTrue; BasicBlock* ifFalse; };
 	struct Jump { BasicBlock* destination; };
@@ -41,7 +41,7 @@ namespace IR {
 	using Instruction = std::variant<
 		Store, Load,
 		Add, Subtract,
-		
+
 		Less, LessOrEqual,
 		Equal, NotEqual,
 		Greater, GreaterOrEqual,
@@ -54,6 +54,34 @@ namespace IR {
 			std::holds_alternative<Branch>(instruction) ||
 			std::holds_alternative<Jump>(instruction) ||
 			std::holds_alternative<Return>(instruction);
+	}
+
+
+	template<typename T, typename F>
+	void ForEachUse(const T& instruction, F&& callback) {
+		if constexpr (std::derived_from<T, Binary<T>>) {
+			callback(instruction.left);
+			callback(instruction.right);
+		}
+		else if constexpr (std::derived_from<T, Unary<T>>) {
+			callback(instruction.source);
+		}
+		else if constexpr (std::same_as<T, Branch>) {
+			callback(instruction.condition);
+		}
+		else if constexpr (std::same_as<T, Return>) {
+			callback(instruction.value);
+		}
+	}
+
+	template<typename T, typename F>
+	void ForEachDefinition(const T& instruction, F&& callback) {
+		if constexpr (std::derived_from<T, Binary<T>>) {
+			callback(instruction.result);
+		}
+		else if constexpr (std::derived_from<T, Unary<T>>) {
+			callback(instruction.destination);
+		}
 	}
 
 }

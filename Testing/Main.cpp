@@ -2,6 +2,7 @@
 
 #include <IR/Builder.hpp>
 #include <IR/CFG.hpp>
+#include <IR/InterferenceGraph.hpp>
 
 int main() {
 	IR::Types types;
@@ -20,7 +21,9 @@ int main() {
 	builder.Store(result, builder.Add(left, right));
 	builder.Return(result);
 
-	IR::CFG cfg = IR::CFG::Build(function);
+	auto cfg = IR::CFG::Build(function);
+	auto ifg = IR::InterferenceGraph::Build(cfg);
+
 
 	return 0;
 }

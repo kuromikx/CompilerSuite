@@ -163,6 +163,7 @@
     <ClInclude Include="Operand.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Platform.hpp" />
+    <ClInclude Include="RegisterAllocator.hpp" />
     <ClInclude Include="Regs.hpp" />
   </ItemGroup>
   <ItemGroup>

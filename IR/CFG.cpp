@@ -64,31 +64,13 @@ IR::CFG IR::CFG::Build(const Function& function) {
 			}
 		};
 
-		for (const auto& inst : *blockInfo.block) {
-			std::visit([&](const auto& instruction) {
-				using T = std::decay_t<decltype(instruction)>;
-
-				if constexpr (std::derived_from<T, Binary<T>>) {
-					useValue(instruction.left);
-					useValue(instruction.right);
-					defValue(instruction.result);
-				}
-				else if constexpr (std::derived_from<T, Unary<T>>) {
-					useValue(instruction.source);
-					defValue(instruction.destination);
-				}
-				else if constexpr (std::same_as<T, Branch>) {
-					useValue(instruction.condition);
-				}
-				else if constexpr (std::same_as<T, Return>) {
-					useValue(instruction.value);
-				}
-				}, inst);
+		for (const auto& instruction : *blockInfo.block) {
+			ForEachUse(instruction, useValue);
+			ForEachDefinition(instruction, defValue);
 		}
 	}
 
 	cfg.ComputeLiveness();
-
 	return cfg;
 }
 
