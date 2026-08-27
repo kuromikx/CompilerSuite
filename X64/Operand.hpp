@@ -1,5 +1,5 @@
 #pragma once
-#include <IR/Value.hpp>
+#include <IR/BasicBlock.hpp>
 #include "Regs.hpp"
 #include <cstdint>
 #include <variant>
@@ -8,29 +8,39 @@ namespace X64 {
 	struct Empty {};
 	
 	struct Address {
-		std::uint64_t base;
-		std::uint64_t index;
-		std::uint64_t scale;
-		std::uint64_t displacement;
+		Register base;
+		std::int64_t offset;
+		std::int64_t index;
+		std::int64_t scale;
+		bool operator == (const Address&) const = default;
 	};
 
 	struct Immediate {
 		std::int64_t value;
+		bool operator == (const Immediate&) const = default;
+	};
+
+	struct Label {
+		std::size_t id;
+		bool operator == (const Label&) const = default;
 	};
 
 	struct Operand : std::variant <
-		Empty,
 		Register,
 		Address,
-		Immediate
+		Immediate,
+		Label
 	> {
-		constexpr bool IsRegister() const;
-		constexpr bool IsMemoryAddress() const;
-		constexpr bool IsImmediate() const;
-		constexpr bool IsRax() const;
+		bool IsRegister() const;
+		bool IsMemoryAddress() const;
+		bool IsImmediate() const;
+		bool IsRax() const;
+		bool IsLabel() const;
 
-		constexpr const X64::Register& AsRegister() const;
-		constexpr const X64::Address& AsMemoryAddress() const;
-		constexpr const X64::Immediate& AsImmediate() const;
+		const X64::Register& AsRegister() const;
+		const X64::Address& AsMemoryAddress() const;
+		const X64::Immediate& AsImmediate() const;
+		const X64::Label& AsLabel() const;
+		bool operator == (const Operand& rhs) const;
 	};
 }

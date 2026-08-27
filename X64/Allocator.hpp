@@ -6,8 +6,8 @@
 namespace X64 {
     class Allocator {
     public:
-        struct StackSlot { std::size_t offset; };
-        
+        struct StackSlot { std::int64_t offset; };
+
         class Allocation {
         public:
             Allocation(Register reg)
@@ -27,9 +27,8 @@ namespace X64 {
             std::variant<Register, StackSlot> value;
         };
 
-        using Allocations = std::unordered_map<IR::Value*, Allocation>;
-
-        Allocations Allocate(const IR::InterferenceGraph& graph);
+        void Allocate(const IR::InterferenceGraph& graph);
+        Allocation GetAllocation(IR::Value* value) const;
 
     private:
         static constexpr std::array<Register, 13> registers =
@@ -48,5 +47,8 @@ namespace X64 {
             Register::r14,
             Register::r15
         };
+
+        using Allocations = std::unordered_map<IR::Value*, Allocation>;
+        Allocations allocations;
     };
 }

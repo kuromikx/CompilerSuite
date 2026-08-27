@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace X64 {
 	enum class RegisterSize { Qword, Dword, Word, Byte};
@@ -14,5 +15,6 @@ namespace X64 {
 	bool IsCalleeSaved(Register reg);
 	bool IsScratch(Register reg);
 	RegisterSize Size(Register reg);
-	const char* ToString(Register reg);
+	const char* ToCString(Register reg);
+	std::string ToString(const Register& reg);
 }

@@ -45,6 +45,7 @@ namespace X64 {
 			Nop
 		};
 
+
 		Opcode opcode;
 		Operands operands;
 
@@ -85,7 +86,7 @@ namespace X64 {
 		static MC Jne(const Operand dst);
 		static MC Jg(const Operand dst);
 		static MC Jge(const Operand dst);
-	
+
 		// etc
 		static MC Ret();
 		static MC Nop();
@@ -94,6 +95,10 @@ namespace X64 {
 		bool IsConditionalJump() const noexcept;
 		bool IsSetCC() const noexcept;
 		MC InvertJumpCondition() const noexcept;
+
+		static const char* ToString(Opcode opcode);
+		static std::string ToString(const Operand& operand);
+		std::string ToString() const;
 	};
 
 }

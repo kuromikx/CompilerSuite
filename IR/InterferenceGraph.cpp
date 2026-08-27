@@ -11,14 +11,20 @@ IR::InterferenceGraph IR::InterferenceGraph::Build(const CFG& cfg) {
 		for (auto it = block->rbegin(); it != block->rend(); ++it) {
 			std::visit([&](const auto& instruction) {
 				ForEachDefinition(instruction, [&](Value* definition) {
+					graph.AddValue(definition);
+
 					for (auto* liveValue : live) {
 						graph.AddInterference(definition, liveValue);
 					}
+
 					live.erase(definition);
-				});
+					});
 
 				ForEachUse(instruction, [&](Value* use) {
-					if (use != nullptr) { live.insert(use); }
+					if (use != nullptr) {
+						graph.AddValue(use);
+						live.insert(use);
+					}
 				});
 			}, *it);
 		}

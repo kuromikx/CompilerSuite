@@ -5,6 +5,7 @@
 #include <IR/InterferenceGraph.hpp>
 
 #include <X64/Allocator.hpp>
+#include <X64/MCSelector.hpp>
 
 int main() {
 	IR::Types types;
@@ -29,10 +30,17 @@ int main() {
 	auto ifg = IR::InterferenceGraph::Build(cfg);
 	
 	X64::Allocator allocator;
-	auto allocations = allocator.Allocate(ifg);
+	allocator.Allocate(ifg);
 
-	for (auto& x : allocations) {
-		x.second.Print();
+	X64::MCBlock output;
+
+	for (auto& blockInfo : cfg.Blocks()) {
+		auto selector = X64::MCSelector(allocator);
+		auto result = selector.Select(*blockInfo.block);
+
+		for (const auto& ins : result) {
+			std::cout << ins.ToString() << '\n';
+		}
 	}
 
 	return 0;

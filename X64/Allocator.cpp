@@ -2,7 +2,7 @@
 #include "Allocator.hpp"
 #include <iostream>
 
-X64::Allocator::Allocations X64::Allocator::Allocate(const IR::InterferenceGraph& graph) {
+void X64::Allocator::Allocate(const IR::InterferenceGraph& graph) {
     constexpr std::size_t registerCount = registers.size();
 
     // Values which haven't been removed from the graph yet.
@@ -63,10 +63,8 @@ X64::Allocator::Allocations X64::Allocator::Allocate(const IR::InterferenceGraph
         remaining.erase(it);
     }
 
-    Allocations allocation;
-
     // Stack slots are allocated in bytes.
-    std::size_t nextStackSlot = 0;
+    std::int64_t nextStackSlot = 0;
 
     while (!stack.empty()) {
         IR::Value* value = stack.back();
@@ -75,9 +73,9 @@ X64::Allocator::Allocations X64::Allocator::Allocate(const IR::InterferenceGraph
         std::unordered_set<Register> usedRegisters;
 
         for (auto* neighbour : graph.GetNeighbours(value)) {
-            auto it = allocation.find(neighbour);
+            auto it = allocations.find(neighbour);
 
-            if (it == allocation.end()) {
+            if (it == allocations.end()) {
                 continue;
             }
 
@@ -97,13 +95,13 @@ X64::Allocator::Allocations X64::Allocator::Allocate(const IR::InterferenceGraph
         );
 
         if (registerIt != registers.end()) {
-            allocation.insert_or_assign(
+            allocations.insert_or_assign(
                 value,
                 X64::Register{ *registerIt }
             );
         }
         else {
-            allocation.insert_or_assign(
+            allocations.insert_or_assign(
                 value,
                 StackSlot{ .offset = nextStackSlot }
             );
@@ -111,8 +109,6 @@ X64::Allocator::Allocations X64::Allocator::Allocate(const IR::InterferenceGraph
             nextStackSlot += 8;
         }
     }
-
-    return allocation;
 }
 
 const X64::Register& X64::Allocator::Allocation::AsRegister() const {
@@ -139,4 +135,8 @@ void X64::Allocator::Allocation::Print() const {
     else if (IsStackSlot()) {
         std::cout << "Slot: " << AsStackSlot().offset << '\n';
     }
+}
+
+X64::Allocator::Allocation X64::Allocator::GetAllocation(IR::Value* value) const {
+    return allocations.at(value);
 }

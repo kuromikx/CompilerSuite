@@ -3,8 +3,8 @@
 #include "pch.h"
 
 
-const char* X64::ToString(Register reg) {
-#define X(a,b,c,d) case a: return #a ; case b: return #b; case c: return #c; case d: return #c 
+const char* X64::ToCString(Register reg) {
+#define X(a,b,c,d) case a: return #a ; case b: return #b ; case c: return #c ; case d: return #d
 	using enum Register;
 	switch (reg) {
 		X(rbp, ebp, bp, bpl);
@@ -27,15 +27,19 @@ const char* X64::ToString(Register reg) {
 #undef X
 }
 
+std::string X64::ToString(const Register& reg) {
+	return { ToCString(reg) };
+}
+
 X64::Register X64::Promote(Register reg) {
 	using enum Register;
 	switch (reg) {
+	case rbp:	case ebp:	case bp:		case bpl:	return rbp;
+	case rsp:	case esp:	case sp:		case spl:	return rsp;
 	case rax:	case eax:	case ax:		case al:	return rax;
 	case rbx:	case ebx:	case bx:		case bl:	return rbx;
 	case rcx:	case ecx:	case cx:		case cl:	return rcx;
 	case rdx:	case edx:	case dx:		case dl:	return rdx;
-	case rbp:	case ebp:	case bp:		case bpl:	return rbp;
-	case rsp:	case esp:	case sp:		case spl:	return rsp;
 	case rsi:	case esi:	case si:		case sil:	return rsi;
 	case rdi:	case edi:	case di:		case dil:	return rdi;
 	case r8:	case r8d:	case r8w:		case r8b:	return r8;
