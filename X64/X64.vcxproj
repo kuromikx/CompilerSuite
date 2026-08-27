@@ -159,10 +159,14 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Code.hpp" />
     <ClInclude Include="MC.hpp" />
     <ClInclude Include="MCBlock.hpp" />
-    <ClInclude Include="MCSelector.hpp" />
+    <ClInclude Include="Pass.hpp" />
+    <ClInclude Include="Peephole.hpp" />
+    <ClInclude Include="Selector.hpp" />
     <ClInclude Include="Operand.hpp" />
+    <ClInclude Include="Optimizer.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="Allocator.hpp" />
@@ -170,8 +174,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allocator.cpp" />
+    <ClCompile Include="Code.cpp" />
     <ClCompile Include="MC.cpp" />
-    <ClCompile Include="MCSelector.cpp" />
+    <ClCompile Include="Optimizer.cpp" />
+    <ClCompile Include="Peephole.cpp" />
+    <ClCompile Include="Selector.cpp" />
     <ClCompile Include="Operand.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

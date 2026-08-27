@@ -29,6 +29,7 @@ namespace IR {
 
 		// Control Flow
 		void Jump(BasicBlock* destination);
+		void Branch(IR::Value* condition, BasicBlock* trueBlock, BasicBlock* falseBlock);
 		void Return(Value* value = nullptr);
 
 	protected:

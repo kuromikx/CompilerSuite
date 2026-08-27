@@ -53,7 +53,7 @@ namespace X64 {
 	}
 
 	static std::string ToString(const X64::Label& label) {
-		return ".L" + std::to_string(label.id);
+		return label.ToString();
 	}
 
 }

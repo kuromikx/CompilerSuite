@@ -1,14 +1,17 @@
 #pragma once
 #include <IR/Instruction.hpp>
+#include <functional>
 
-#include "MCBlock.hpp"
 #include "Allocator.hpp"
+#include "Code.hpp"
 
 namespace X64 {
-	class MCSelector {
+	class Selector {
 	public:
-		MCSelector(X64::Allocator& allocator);
-		MCBlock Select(const IR::BasicBlock& block);
+		Selector(X64::Allocator& allocator, Code& code);
+		void Select(const IR::Function& function);
+		const auto& GetCode() const { return code; }
+
 	private:
 		void Lower(const IR::Store&);
 		void Lower(const IR::Load&);
@@ -23,10 +26,12 @@ namespace X64 {
 		void Lower(const IR::Branch&);
 		void Lower(const IR::Jump&);
 		void Lower(const IR::Return&);
-		
+
+		void CreateBlocks(const IR::Function& function);
 		Operand GetOperand(IR::Value* value);
+		Label GetBlockLabel(IR::BasicBlock* block);
 		void Instruction(MC&& mc);
-		
+
 		template<typename Binary>
 		void CmpSetCC(auto SetCC, Binary bin) {
 			Instruction(MC::Cmp(
@@ -46,7 +51,9 @@ namespace X64 {
 			Instruction(MC::Mov(GetOperand(bin.result), { Register::rax }));
 		}
 
-		MCBlock mc;
+
 		Allocator& allocator;
+		Code& code;
+		MCBlock* target{};
 	};
 }

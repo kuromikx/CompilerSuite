@@ -58,6 +58,10 @@ void IR::Builder::Jump(BasicBlock* destination) {
 	block->Add<IR::Jump>(destination);
 }
 
+void IR::Builder::Branch(IR::Value* condition, BasicBlock* trueBlock, BasicBlock* falseBlock) {
+	block->Add<IR::Branch>(condition, trueBlock, falseBlock);
+}
+
 void IR::Builder::Return(Value* value) {
 	block->Add<IR::Return>(value);
 }

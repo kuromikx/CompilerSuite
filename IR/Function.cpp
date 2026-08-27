@@ -2,6 +2,10 @@
 #include "Function.hpp"
 #include "Value.hpp"
 
+IR::Function::Function(const std::string_view name)
+	: name(name) { }
+
+
 IR::BasicBlock* IR::Function::CreateBlock() {
 	blocks.emplace_back(new BasicBlock());
 	return blocks.back().get();

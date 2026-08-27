@@ -7,7 +7,7 @@ IR::CFG IR::CFG::Build(const Function& function) {
 	CFG cfg;
 	cfg.blocks.reserve(blocks.size());
 
-	std::unordered_map<const BasicBlock*, BasicBlockInfo*> blockToInfo;
+	std::unordered_map<const IR::BasicBlock*, BasicBlockInfo*> blockToInfo;
 
 	// Create BasicBlockInfo objects and map each BasicBlock to its info.
 	for (const auto& block : blocks) {
@@ -27,7 +27,7 @@ IR::CFG IR::CFG::Build(const Function& function) {
 			continue;
 		}
 
-		const auto addSuccessor = [&](BasicBlock* block) {
+		const auto addSuccessor = [&](IR::BasicBlock* block) {
 			auto* successor = blockToInfo.at(block);
 
 			info.successors.push_back(successor);
@@ -41,8 +41,8 @@ IR::CFG IR::CFG::Build(const Function& function) {
 				addSuccessor(instruction.destination);
 			}
 			else if constexpr (std::same_as<T, Branch>) {
-				addSuccessor(instruction.ifTrue);
-				addSuccessor(instruction.ifFalse);
+				addSuccessor(instruction.trueBlock);
+				addSuccessor(instruction.falseBlock);
 			}
 			else if constexpr (std::same_as<T, Return>) {
 				// Return has no successors.

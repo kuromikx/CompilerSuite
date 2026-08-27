@@ -33,10 +33,22 @@
     <ClInclude Include="MCBlock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MCSelector.hpp">
+    <ClInclude Include="Selector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Allocator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Optimizer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pass.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Peephole.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,10 +65,19 @@
     <ClCompile Include="Operand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MCSelector.cpp">
+    <ClCompile Include="Selector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Allocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Optimizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Peephole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -44,3 +44,14 @@ bool X64::Operand::operator==(const Operand& rhs) const {
 	if (IsLabel() && rhs.IsLabel()) return AsLabel() == rhs.AsLabel();
 	return false;
 }
+
+
+std::string X64::Label::ToString() const {
+	if (std::holds_alternative<std::size_t>(id)) {
+		return ".L" + std::to_string(std::get<std::size_t>(id));
+	}
+	if (std::holds_alternative<std::string>(id)) {
+		return std::get<std::string>(id);
+	}
+	throw;
+}
